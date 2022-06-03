@@ -5,33 +5,11 @@ import {
     AccordionSummary,
     Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../utils/api';
 import Character from '../characterCard/Character';
 import './style.scss';
-
-interface IData {
-    info: {
-        count: string;
-        page: string;
-        next: string;
-        prev: string;
-    };
-    results: Array<{
-        id: number;
-        name: string;
-        status: string;
-        type: string;
-        gender: string;
-        image: string;
-        species: string;
-        location: {
-            name: string;
-        };
-        episode: Array<string>;
-    }>;
-}
 
 interface ICharacters {
     id: number;
@@ -48,24 +26,24 @@ interface ICharacters {
 }
 
 export default function Favorites(): JSX.Element {
-    const [characters, setCharacters] = useState<Array<ICharacters>>([]);
-    const favoritesList = useState<Array<ICharacters>>([]);
+    const charactersFavorite: Array<ICharacters> = [];
 
     const getFavorites = async () => {
         let myFavorites = [];
         myFavorites = (localStorage.getItem('favorites_list') || '[]').split(
             /\s*,\s*/
         );
-        myFavorites.forEach(async (item) => {
+
+        if (myFavorites != null) {
             try {
-                const nameCharacter = item.replace(/[^\w\s]/gi, '');
-                const response = await api.get<IData>(
-                    `/character/?name=${nameCharacter}`
-                );
-                const { data } = response;
-                // setCharacters(data.results);
-                setCharacters(characters.concat(data.results));
-                console.log(characters);
+                myFavorites.forEach(async (item) => {
+                    const idItem = item.replace(/[^\w\s]/gi, '');
+                    const response = await api.get(`/character/${idItem}`);
+                    const { data } = response;
+                    charactersFavorite.push(data);
+                    console.log(charactersFavorite);
+                    // setCharactersFavorite(JSON.parse(favoritesList[2]));
+                });
             } catch (e) {
                 let errorMessage = 'Failed to do something exceptional';
                 if (e instanceof Error) {
@@ -73,10 +51,10 @@ export default function Favorites(): JSX.Element {
                 }
                 toast.error(errorMessage);
             }
-        });
+        }
     };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getFavorites();
     }, []);
 
@@ -92,19 +70,7 @@ export default function Favorites(): JSX.Element {
             <AccordionDetails>
                 <main className="main-wrapper">
                     <ul className="container-cards">
-                        {characters.map((character) => (
-                            <Character
-                                id={character.id}
-                                name={character.name}
-                                gender={character.gender}
-                                species={character.species}
-                                status={character.status}
-                                type={character.type}
-                                image={character.image}
-                                location={character.location}
-                                episode={character.episode}
-                            />
-                        ))}
+                        <span>{JSON.stringify(charactersFavorite)}</span>
                     </ul>
                 </main>
             </AccordionDetails>

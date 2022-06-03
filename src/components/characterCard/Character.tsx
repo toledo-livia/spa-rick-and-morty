@@ -31,10 +31,10 @@ export default function Character({
 }: ICharacter): JSX.Element {
     const { getCollapseProps, getToggleProps } = useCollapse();
 
-    const favorite = (nameCharacter: string) => {
+    const favorite = (idCharacter: number) => {
         const list = JSON.parse(localStorage.getItem('favorites_list') || '[]');
 
-        list.push(nameCharacter);
+        list.push(idCharacter);
         localStorage.setItem('favorites_list', JSON.stringify(list));
     };
 
@@ -49,7 +49,7 @@ export default function Character({
                     variant="contained"
                     endIcon={<StarBorderIcon />}
                     className="button"
-                    onClick={() => favorite(name)}
+                    onClick={() => favorite(id)}
                 >
                     Favorite
                 </Button>
