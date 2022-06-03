@@ -3,9 +3,7 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import Button from '@mui/material/Button';
 import React from 'react';
 import useCollapse from 'react-collapsed';
-import { Link } from 'react-router-dom';
-
-import { Card } from './style';
+import './style.scss';
 
 interface ICharacter {
     id: number;
@@ -26,7 +24,6 @@ export default function Character({
     name,
     status,
     species,
-    type,
     gender,
     image,
     location,
@@ -42,90 +39,45 @@ export default function Character({
     };
 
     return (
-        <Card key={id}>
-            <div className="character_photo">
-                <div
-                    style={{
-                        backgroundImage: `url(${image})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        borderRadius: '20px',
-                        height: '100%',
-                        width: '180px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'flex-end',
-                    }}
-                    {...getToggleProps()}
+        <li className="card" key={id}>
+            <div
+                className="character-photo"
+                style={{ backgroundImage: `url(${image})` }}
+                {...getToggleProps()}
+            >
+                <Button
+                    variant="contained"
+                    endIcon={<StarBorderIcon />}
+                    className="button"
+                    onClick={() => favorite(name)}
                 >
-                    <Button
-                        variant="contained"
-                        endIcon={<StarBorderIcon />}
-                        style={{ marginBottom: '20px' }}
-                        onClick={(e) => favorite(name)}
-                    >
-                        Favorite
-                    </Button>
-                </div>
+                    Favorite
+                </Button>
             </div>
-            <div className="informations_character">
-                <h1 {...getToggleProps()} style={{ cursor: 'pointer' }}>
+            <div className="informations-character">
+                <h1 {...getToggleProps()} className="title">
                     {name}
                 </h1>
-                <p
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                >
+                <p className="status">
                     <CircleIcon
-                        style={{
-                            width: '15px',
-                            height: '15px',
-                            marginRight: '5px',
-                            color: 'red',
-                        }}
+                        className="circle-icon"
+                        style={
+                            status === 'Alive'
+                                ? { color: 'green' }
+                                : { color: 'red' }
+                        }
                     />
                     {status} - {species}
                 </p>
-                <p
-                    style={{
-                        fontSize: '18px',
-                        fontWeight: 'bold',
-                        color: 'rgb(158, 158, 158)',
-                        margin: 0,
-                    }}
-                >
-                    Gender:
-                </p>
-                <p style={{ margin: 0 }}>{gender}</p>
+                <p className="subtitle">Gender:</p>
+                <p className="content">{gender}</p>
                 <section {...getCollapseProps()}>
-                    <p
-                        style={{
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: 'rgb(158, 158, 158)',
-                            margin: 0,
-                        }}
-                    >
-                        Last known location:
-                    </p>
-                    <p style={{ margin: 0 }}>{location.name}</p>
-                    <p
-                        style={{
-                            fontSize: '18px',
-                            fontWeight: 'bold',
-                            color: 'rgb(158, 158, 158)',
-                            margin: 0,
-                        }}
-                    >
-                        Number of episodes:
-                    </p>
-                    <p style={{ margin: 0 }}>{episode.length}</p>
+                    <p className="subtitle">Last known location:</p>
+                    <p className="content">{location.name}</p>
+                    <p className="subtitle">Number of episodes:</p>
+                    <p className="content">{episode.length}</p>
                 </section>
             </div>
-        </Card>
+        </li>
     );
 }
