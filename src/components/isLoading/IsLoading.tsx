@@ -1,5 +1,5 @@
 import React from 'react';
-import { IsLoadingContainer } from './style';
+import './style.scss';
 
 interface IIsLoadind {
     msg: string;
@@ -7,8 +7,8 @@ interface IIsLoadind {
 
 export default function IsLoading({ msg }: IIsLoadind): JSX.Element {
     return (
-        <IsLoadingContainer>
+        <div className="loading-container">
             <h1>{msg}</h1>
-        </IsLoadingContainer>
+        </div>
     );
 }

@@ -1,14 +1,15 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Typography,
+} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-
 import api from '../../utils/api';
 import Character from '../characterCard/Character';
-import { ControlButtons, Form, MainWrapper } from './style';
+import './style.scss';
 
 interface IData {
     info: {
@@ -84,7 +85,7 @@ export default function Favorites(): JSX.Element {
     }, []);
 
     return (
-        <Accordion style={{ width: '85%' }}>
+        <Accordion className="accordion">
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
@@ -93,8 +94,8 @@ export default function Favorites(): JSX.Element {
                 <Typography>Favorite Characters</Typography>
             </AccordionSummary>
             <AccordionDetails>
-                <MainWrapper>
-                    <ul className="container_cads">
+                <main className="main-wrapper">
+                    <ul className="container-cards">
                         {characters.map((character) => (
                             <Character
                                 id={character.id}
@@ -109,7 +110,7 @@ export default function Favorites(): JSX.Element {
                             />
                         ))}
                     </ul>
-                </MainWrapper>
+                </main>
             </AccordionDetails>
         </Accordion>
     );

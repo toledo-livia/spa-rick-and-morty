@@ -1,0 +1,15 @@
+.accordion {
+    width: 85%;
+
+    .main-wrapper {
+        margin: 25px auto;
+        max-width: 1720px;
+    }
+
+    .container-cards {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+}

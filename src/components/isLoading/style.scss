@@ -1,6 +1,4 @@
-import styled from 'styled-components';
-
-export const IsLoadingContainer = styled.div`
+.loading-container {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -15,4 +13,4 @@ export const IsLoadingContainer = styled.div`
         font-size: 80px;
         color: #000;
     }
-`;
+}
