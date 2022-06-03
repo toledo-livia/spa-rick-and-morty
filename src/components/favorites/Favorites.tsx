@@ -26,8 +26,9 @@ interface ICharacters {
 }
 
 export default function Favorites(): JSX.Element {
-    const charactersFavorite: Array<ICharacters> = [];
-
+    const [charactersFavorite, setCharactersFavorite] = useState<
+        Array<ICharacters>
+    >([]);
     const getFavorites = async () => {
         let myFavorites = [];
         myFavorites = (localStorage.getItem('favorites_list') || '[]').split(
@@ -40,7 +41,10 @@ export default function Favorites(): JSX.Element {
                     const idItem = item.replace(/[^\w\s]/gi, '');
                     const response = await api.get(`/character/${idItem}`);
                     const { data } = response;
-                    charactersFavorite.push(data);
+                    setCharactersFavorite((prevCharacter) => [
+                        ...prevCharacter,
+                        data,
+                    ]);
                     console.log(charactersFavorite);
                     // setCharactersFavorite(JSON.parse(favoritesList[2]));
                 });
