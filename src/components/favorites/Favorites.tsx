@@ -50,7 +50,6 @@ interface ICharacters {
 export default function Favorites(): JSX.Element {
     const [characters, setCharacters] = useState<Array<ICharacters>>([]);
     const favoritesList = useState<Array<ICharacters>>([]);
-    const [isLoading, setIsLoading] = useState(true);
 
     const getFavorites = async () => {
         let myFavorites = [];
@@ -59,7 +58,6 @@ export default function Favorites(): JSX.Element {
         );
         myFavorites.forEach(async (item) => {
             try {
-                setIsLoading(false);
                 const nameCharacter = item.replace(/[^\w\s]/gi, '');
                 const response = await api.get<IData>(
                     `/character/?name=${nameCharacter}`
@@ -67,7 +65,6 @@ export default function Favorites(): JSX.Element {
                 const { data } = response;
                 // setCharacters(data.results);
                 setCharacters(characters.concat(data.results));
-                setIsLoading(true);
                 console.log(characters);
             } catch (e) {
                 let errorMessage = 'Failed to do something exceptional';
@@ -75,7 +72,6 @@ export default function Favorites(): JSX.Element {
                     errorMessage = e.message;
                 }
                 toast.error(errorMessage);
-                setIsLoading(true);
             }
         });
     };

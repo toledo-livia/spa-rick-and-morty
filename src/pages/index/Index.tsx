@@ -1,20 +1,21 @@
 import SearchIcon from '@mui/icons-material/Search';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import InputBase from '@mui/material/InputBase';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Paper from '@mui/material/Paper';
+import {
+    FormControl,
+    IconButton,
+    InputBase,
+    InputLabel,
+    MenuItem,
+    Paper,
+} from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-
 import Character from '../../components/characterCard/Character';
 import Favorites from '../../components/favorites/Favorites';
 import Header from '../../components/header/Header';
 import IsLoading from '../../components/isLoading/IsLoading';
 import api from '../../utils/api';
-import { ControlButtons, Form, MainWrapper } from './style';
+import './style.scss';
 
 interface IData {
     info: {
@@ -105,34 +106,11 @@ export default function Index(): JSX.Element {
     }
 
     return (
-        <div
-            style={{
-                width: '100%',
-                backgroundColor: '#B7E4F9FF',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
+        <div className="container">
             <Header />
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Form>
-                    <Paper
-                        sx={{
-                            p: '2px 4px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            width: 400,
-                        }}
-                    >
+            <div className="section-busca">
+                <form className="form">
+                    <Paper className="paper" sx={{ p: '2px 4px' }}>
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}
                             placeholder="Search character"
@@ -150,8 +128,8 @@ export default function Index(): JSX.Element {
                             <SearchIcon />
                         </IconButton>
                     </Paper>
-                </Form>
-                <FormControl style={{ width: '10%', backgroundColor: 'white' }}>
+                </form>
+                <FormControl className="form-control">
                     <InputLabel id="demo-simple-select-label">
                         Search by
                     </InputLabel>
@@ -169,8 +147,8 @@ export default function Index(): JSX.Element {
                 </FormControl>
             </div>
             <Favorites />
-            <MainWrapper>
-                <ul className="container_cads">
+            <main className="main-wrapper">
+                <ul className="container-cards">
                     {characters.map((character) => (
                         <Character
                             id={character.id}
@@ -185,8 +163,8 @@ export default function Index(): JSX.Element {
                         />
                     ))}
                 </ul>
-            </MainWrapper>
-            <ControlButtons>
+            </main>
+            <div className="control-buttons">
                 <button
                     type="button"
                     onClick={() => getData(info?.prev)}
@@ -201,7 +179,7 @@ export default function Index(): JSX.Element {
                 >
                     Next
                 </button>
-            </ControlButtons>
+            </div>
         </div>
     );
 }
