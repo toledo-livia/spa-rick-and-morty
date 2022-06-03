@@ -5,10 +5,6 @@ a SPA consuming the data from the rick and morty api
 
 API used: https://rickandmortyapi.com/
 
-## Getting Started
-
-you can see the app online here: https://pedrohenrique-git.github.io/rick-and-morty-page/
-
 ### Dependencies
 
 <a href="https://www.typescriptlang.org/">TypeScript</a><br/>
@@ -25,10 +21,3 @@ execute the command: <b>npm i</b>
 
 execute the commands: <b>npm start</b>
 
-## Authors
-
-Pedro Henrique
-
-## License
-
-This project is licensed under the [MIT] License - see the LICENSE.md file for details
