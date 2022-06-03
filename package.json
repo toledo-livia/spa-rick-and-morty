@@ -1,6 +1,5 @@
 {
     "name": "rick-and-morty-soa",
-    "homepage": "https://PedroHenrique-git.github.io/rick-and-morty-page/",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
